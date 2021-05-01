@@ -1,48 +1,69 @@
-import { useCountContext, useCountsContext } from "../hooks/useCounts";
+import { useCountsContext } from "../hooks/useCounts";
+import Button from "./Button";
+
+// () => setCounts({ ...counts, breakCount: counts.breakCount - 1 })
 
 const Timers = () => {
   const [counts, setCounts] = useCountsContext();
+  const { breakCount, workCount } = counts;
+
+  //   const handleTimerCounts = (counter, equation) => {
+  //     const setTimer = equation === "decrease" ? counter - 1 : counter + 1;
+
+  //     setCounts({
+  //       ...counts,
+  //       counter: setTimer
+  //     });
+  //   };
 
   return (
     <div id="set-timer-container">
       <div>
         <h4 id="break-label">Break Length</h4>
         <div className="crement-container">
-          <button
-            onClick={() =>
-              setCounts({ ...counts, breakCount: counts.breakCount - 1 })
+          <Button
+            Arrow={"up"}
+            onClickFunction={() =>
+              setCounts({
+                ...counts,
+                breakCount: breakCount - 1
+              })
             }
-          >
-            <i class="fas fa-arrow-down"></i>
-          </button>{" "}
-          {counts.breakCount}{" "}
-          <button
-            onClick={() =>
-              setCounts({ ...counts, breakCount: counts.breakCount + 1 })
+          />{" "}
+          {breakCount}{" "}
+          <Button
+            Arrow={"up"}
+            onClickFunction={() =>
+              setCounts({
+                ...counts,
+                breakCount: breakCount + 1
+              })
             }
-          >
-            <i class="fas fa-arrow-up"></i>
-          </button>
+          />
         </div>
       </div>
       <div>
         <h4>Break Length</h4>
         <div className="crement-container">
-          <button
-            onClick={() =>
-              setCounts({ ...counts, workCount: counts.workCount - 1 })
+          <Button
+            Arrow={"down"}
+            onClickFunction={() =>
+              setCounts({
+                ...counts,
+                workCount: workCount - 1
+              })
             }
-          >
-            <i class="fas fa-arrow-down"></i>
-          </button>{" "}
-          {counts.workCount}{" "}
-          <button
-            onClick={() =>
-              setCounts({ ...counts, workCount: counts.workCount + 1 })
+          />{" "}
+          {workCount}{" "}
+          <Button
+            Arrow={"up"}
+            onClickFunction={() =>
+              setCounts({
+                ...counts,
+                workCount: workCount + 1
+              })
             }
-          >
-            <i class="fas fa-arrow-up"></i>
-          </button>
+          />
         </div>
       </div>
     </div>
