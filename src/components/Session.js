@@ -1,18 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useCountsContext } from "../hooks/useCounts";
 
 const Session = () => {
   const [counts] = useCountsContext();
 
-  let countdown;
+  let countdown = 0;
 
-  useEffect(() => {
-    countdown = counts.workCount;
-  }, []);
+  useEffect(() => {}, [countdown]);
 
   const timer = () => {
-    if (countdown <= 0) return;
-    countdown--;
+    if (countdown === counts.workCount) return;
+    countdown++;
+    document.getElementById("counter").innerHTML = counts.workCount - countdown;
   };
 
   const counter = () => setInterval(timer, 1000);
@@ -20,7 +19,7 @@ const Session = () => {
   return (
     <div>
       <h4>Session</h4>
-      <h2>{countdown}</h2>
+      <h2 id="counter">{counts.workCount - countdown}</h2>
       <div className="button-container">
         <button onClick={counter}>
           <i class="fas fa-play"></i>
