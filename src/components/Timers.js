@@ -7,15 +7,6 @@ const Timers = () => {
   const [counts, setCounts] = useCountsContext();
   const { breakCount, workCount } = counts;
 
-  //   const handleTimerCounts = (counter, equation) => {
-  //     const setTimer = equation === "decrease" ? counter - 1 : counter + 1;
-
-  //     setCounts({
-  //       ...counts,
-  //       counter: setTimer
-  //     });
-  //   };
-
   return (
     <div id="set-timer-container">
       <div>
