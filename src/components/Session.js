@@ -2,7 +2,7 @@ import React from "react";
 import { useCountsContext } from "../hooks/useCounts";
 
 const Session = () => {
-  const [counts] = useCountsContext();
+  const [counts, setCounts] = useCountsContext();
 
   let countdown = 0;
   let interval;
@@ -10,7 +10,7 @@ const Session = () => {
   const timer = () => {
     if (countdown === counts.workCount) return;
     countdown++;
-    document.getElementById("counter").innerHTML = formatTimer(
+    document.getElementById("time-left").innerHTML = formatTimer(
       counts.workCount - countdown
     );
   };
@@ -22,9 +22,13 @@ const Session = () => {
   const resetTimer = () => {
     pause();
     countdown = 0;
-    document.getElementById("counter").innerHTML = formatTimer(
+    document.getElementById("time-left").innerHTML = formatTimer(
       counts.workCount - countdown
     );
+    setCounts({
+      workCount: 1500,
+      breakCount: 300
+    });
   };
 
   const formatTimer = seconds => {
@@ -38,16 +42,16 @@ const Session = () => {
 
   return (
     <div>
-      <h4>Session</h4>
-      <h2 id="counter">{formatTimer(counts.workCount - countdown)}</h2>
+      <h4 id="timer-label">Session</h4>
+      <h2 id="time-left">{formatTimer(counts.workCount - countdown)}</h2>
       <div className="button-container">
-        <button onClick={start}>
+        <button onClick={start} id="start_stop">
           <i class="fas fa-play"></i>
         </button>
         <button onClick={pause}>
           <i class="fas fa-pause"></i>
         </button>
-        <button onClick={resetTimer}>
+        <button onClick={resetTimer} id="reset">
           <i class="fas fa-spinner"></i>
         </button>
       </div>

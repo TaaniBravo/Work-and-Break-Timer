@@ -13,6 +13,7 @@ const Timers = () => {
         <h4 id="break-label">Break Length</h4>
         <div className="crement-container">
           <Button
+            id={"break-decrement"}
             Arrow={"up"}
             onClickFunction={() =>
               setCounts({
@@ -21,8 +22,9 @@ const Timers = () => {
               })
             }
           />{" "}
-          {breakCount / 60}{" "}
+          <div id="break-length">{breakCount / 60}</div>{" "}
           <Button
+            id={"break-increment"}
             Arrow={"up"}
             onClickFunction={() =>
               setCounts({
@@ -34,9 +36,10 @@ const Timers = () => {
         </div>
       </div>
       <div>
-        <h4>Break Length</h4>
+        <h4 id="session-label">Work Length</h4>
         <div className="crement-container">
           <Button
+            id={"session-decrement"}
             Arrow={"down"}
             onClickFunction={() =>
               setCounts({
@@ -45,8 +48,9 @@ const Timers = () => {
               })
             }
           />{" "}
-          {workCount / 60}{" "}
+          <div id="session-length">{workCount / 60} </div>
           <Button
+            id={"session-increment"}
             Arrow={"up"}
             onClickFunction={() =>
               setCounts({
