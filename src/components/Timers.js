@@ -17,17 +17,17 @@ const Timers = () => {
             onClickFunction={() =>
               setCounts({
                 ...counts,
-                breakCount: breakCount - 1
+                breakCount: breakCount - 60
               })
             }
           />{" "}
-          {breakCount}{" "}
+          {breakCount / 60}{" "}
           <Button
             Arrow={"up"}
             onClickFunction={() =>
               setCounts({
                 ...counts,
-                breakCount: breakCount + 1
+                breakCount: breakCount + 60
               })
             }
           />
@@ -41,17 +41,17 @@ const Timers = () => {
             onClickFunction={() =>
               setCounts({
                 ...counts,
-                workCount: workCount - 1
+                workCount: workCount - 60
               })
             }
           />{" "}
-          {workCount}{" "}
+          {workCount / 60}{" "}
           <Button
             Arrow={"up"}
             onClickFunction={() =>
               setCounts({
                 ...counts,
-                workCount: workCount + 1
+                workCount: workCount + 60
               })
             }
           />
