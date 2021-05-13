@@ -1,8 +1,8 @@
 import React from "react";
 
-const Button = ({ id, onClickFunction, Arrow }) => {
+const Button = ({ disabled, id, onClickFunction, Arrow }) => {
   return (
-    <button id={id} onClick={onClickFunction}>
+    <button disabled={disabled} id={id} onClick={onClickFunction}>
       <i class={`fas fa-arrow-${Arrow}`}></i>
     </button>
   );

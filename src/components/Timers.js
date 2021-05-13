@@ -14,7 +14,8 @@ const Timers = () => {
         <div className="crement-container">
           <Button
             id={"break-decrement"}
-            Arrow={"up"}
+            Arrow={"down"}
+            disabled={breakCount === 60}
             onClickFunction={() =>
               setCounts({
                 ...counts,
@@ -41,6 +42,7 @@ const Timers = () => {
           <Button
             id={"session-decrement"}
             Arrow={"down"}
+            disabled={workCount === 60}
             onClickFunction={() =>
               setCounts({
                 ...counts,
