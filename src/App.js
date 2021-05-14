@@ -9,7 +9,7 @@ const App = () => {
     <div className="app">
       <CountsProvider>
         <Container>
-          <h1>Work Timer</h1>
+          <h1>Pomodoro Timer</h1>
           <Timers />
           <Session />
         </Container>

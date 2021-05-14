@@ -16,23 +16,26 @@ const Timers = () => {
             id={"break-decrement"}
             Arrow={"down"}
             disabled={breakCount === 60}
-            onClickFunction={() =>
+            onClickFunction={() => {
+              if (breakCount === 60) return;
               setCounts({
                 ...counts,
                 breakCount: breakCount - 60
-              })
-            }
+              });
+            }}
           />{" "}
           <div id="break-length">{breakCount / 60}</div>{" "}
           <Button
             id={"break-increment"}
+            disabled={breakCount === 3600}
             Arrow={"up"}
-            onClickFunction={() =>
+            onClickFunction={() => {
+              if (breakCount === 3600) return;
               setCounts({
                 ...counts,
                 breakCount: breakCount + 60
-              })
-            }
+              });
+            }}
           />
         </div>
       </div>
@@ -43,23 +46,26 @@ const Timers = () => {
             id={"session-decrement"}
             Arrow={"down"}
             disabled={workCount === 60}
-            onClickFunction={() =>
+            onClickFunction={() => {
+              if (workCount === 60) return;
               setCounts({
                 ...counts,
                 workCount: workCount - 60
-              })
-            }
+              });
+            }}
           />{" "}
           <div id="session-length">{workCount / 60} </div>
           <Button
             id={"session-increment"}
+            disabled={workCount === 3600}
             Arrow={"up"}
-            onClickFunction={() =>
+            onClickFunction={() => {
+              if (workCount === 3600) return;
               setCounts({
                 ...counts,
                 workCount: workCount + 60
-              })
-            }
+              });
+            }}
           />
         </div>
       </div>

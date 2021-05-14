@@ -7,37 +7,78 @@ const Session = () => {
   let countdown = 0;
   let interval;
 
-  const timer = () => {
-    if (countdown === counts.workCount) return;
+  console.log(interval);
+
+  const sessionTimer = () => {
+    if (counts.workCount === countdown) {
+      clearInterval(interval);
+      countdown = 0;
+      interval = setInterval(breakTimer, 1000);
+    }
+
+    console.log();
+
     countdown++;
     document.getElementById("time-left").innerHTML = formatTimer(
       counts.workCount - countdown
     );
   };
 
-  const start = () => (interval = setInterval(timer, 1000));
+  const breakTimer = () => {
+    if (counts.breakCount === countdown) {
+      clearInterval(interval);
+      interval = null;
+      resetTimer();
+    }
 
-  const pause = () => clearInterval(interval);
+    countdown++;
+    document.getElementById("time-left").innerHTML = formatTimer(
+      counts.breakCount - countdown
+    );
+  };
+
+  const start = () => {
+    interval = setInterval(
+      counts.workCount !== 0 ? sessionTimer : breakTimer,
+      1000
+    );
+    console.log(interval);
+  };
+
+  const pause = () => {
+    clearInterval(interval);
+    interval = null;
+    countdown -= 3;
+  };
 
   const resetTimer = () => {
-    pause();
+    clearInterval(interval);
+    interval = null;
+
     countdown = 0;
-    document.getElementById("time-left").innerHTML = formatTimer(
-      counts.workCount - countdown
-    );
+
     setCounts({
       workCount: 1500,
       breakCount: 300
     });
+
+    document.getElementById("time-left").innerHTML = formatTimer(
+      counts.workCount - countdown
+    );
   };
 
   const formatTimer = seconds => {
     let sec = seconds % 60;
-    const min = parseInt(seconds / 60);
+    let min = parseInt(seconds / 60);
 
+    if (min.toString().length === 1) min = "0" + min;
     if (sec.toString().length === 1) sec = "0" + sec;
 
     return min + ":" + sec;
+  };
+
+  const handleStartStop = () => {
+    !interval ? start() : pause();
   };
 
   return (
@@ -45,10 +86,8 @@ const Session = () => {
       <h4 id="timer-label">Session</h4>
       <h2 id="time-left">{formatTimer(counts.workCount - countdown)}</h2>
       <div className="button-container">
-        <button onClick={start} id="start_stop">
+        <button onClick={handleStartStop} id="start_stop">
           <i class="fas fa-play"></i>
-        </button>
-        <button onClick={pause}>
           <i class="fas fa-pause"></i>
         </button>
         <button onClick={resetTimer} id="reset">
