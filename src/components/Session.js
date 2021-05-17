@@ -1,8 +1,8 @@
 import React from "react";
+import { intervalCollection } from "time-events-manager";
 import { useCountsContext } from "../hooks/useCounts";
 
-// CURRENTLY NEED TO FIGURE OUT HOW I AM GOING TO MAKE SURE ALL INTERVALS
-// ARE CLEARED WHEN TRYING TO PAUSE.
+// CURRENTLY TRYING TO FIGURE OUT WHY MY COUNTER VARIABLE KEEPS RESETTING TO O.
 
 const Session = () => {
   // Call our Global State
@@ -10,20 +10,20 @@ const Session = () => {
   const { workCount, breakCount, onBreak, timerOn } = counts;
 
   // Declare some variables we will need to refine as we go.
-  let countdown = 0;
+  let counter = 0;
   let interval;
 
   const customClearInterval = () => {
-    let highestInterval = setInterval(";");
-    for (let i = 0; i < highestInterval; i++) {
-      clearInterval(i);
-    }
+    console.log(counter);
+    const allIntervals = intervalCollection.getAll();
+
+    clearInterval(allIntervals[0].id);
   };
 
   // Interval function for the session timer.
   const sessionInterval = () => {
     // IF workcount is EQUAL to the countdown integer THEN...
-    if (workCount === countdown) {
+    if (workCount === counter) {
       // Clear the interval
       // clearInterval(interval);
       customClearInterval();
@@ -33,7 +33,7 @@ const Session = () => {
       setCounts({ ...counts, onBreak: true, timerOn: true });
 
       // Set countdown back to zero.
-      countdown = 0;
+      counter = 0;
 
       // Display the correct data to the elements.
       document.getElementById("timer-label").innerHTML = "Break Time!";
@@ -47,9 +47,9 @@ const Session = () => {
       // ELSE...
     } else {
       // Add number to the countdown then update the element displaying time.
-      countdown++;
+      counter++;
       document.getElementById("time-left").innerHTML = formatTimer(
-        workCount - countdown
+        workCount - counter
       );
     }
   };
@@ -57,29 +57,26 @@ const Session = () => {
   // Interval function for the break timer.
   const breakInterval = () => {
     // IF the breakCount is EQUAL to countdown THEN...
-    if (breakCount === countdown) {
+    if (breakCount === counter) {
       // Run resetTimer function.
       resetTimer();
 
       // ELSE...
     } else {
       // Add 1 to countdown integer.
-      countdown++;
+      counter++;
       // Update the element with correct timer count.
       document.getElementById("time-left").innerHTML = formatTimer(
-        breakCount - countdown
+        breakCount - counter
       );
     }
   };
 
   // Function to reset the timer to base settings.
   const resetTimer = () => {
-    // clearInterval(interval);
     customClearInterval();
-    // interval = undefined;
-    console.log(interval);
 
-    countdown = 0;
+    counter = 0;
 
     setCounts({
       ...counts,
@@ -92,7 +89,7 @@ const Session = () => {
     document.getElementById("timer-label").innerHTML = "Session";
 
     document.getElementById("time-left").innerHTML = formatTimer(
-      workCount - countdown
+      workCount - counter
     );
   };
 
@@ -112,22 +109,21 @@ const Session = () => {
         ? (interval = setInterval(sessionInterval, 1000))
         : (interval = setInterval(breakInterval, 1000));
     } else {
-      // clearInterval(interval);
+      console.log(counter);
       customClearInterval();
+      console.log(counter);
     }
 
     setCounts({
       ...counts,
       timerOn: !timerOn
     });
-
-    console.log(timerOn);
   };
 
   return (
     <div>
       <h4 id="timer-label">Session</h4>
-      <h2 id="time-left">{formatTimer(workCount - countdown)}</h2>
+      <h2 id="time-left">{formatTimer(workCount - counter)}</h2>
       <div className="button-container">
         <button onClick={controlTime} id="start_stop">
           <i class="fas fa-play"></i>

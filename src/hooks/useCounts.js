@@ -8,7 +8,8 @@ const CountsProvider = ({ value = [], ...props }) => {
     workCount: 1500,
     breakCount: 300,
     onBreak: false,
-    timerOn: false
+    timerOn: false,
+    countdown: 0
   });
 
   return <Provider value={[counts, setCounts]} {...props} />;
