@@ -5,10 +5,10 @@ const { Provider } = CountContext;
 
 const CountsProvider = ({ value = [], ...props }) => {
   const [counts, setCounts] = useState({
-    workCount: 1,
+    workCount: 1500,
     breakCount: 300,
     onBreak: false,
-    displayTime: 1
+    timerOn: false
   });
 
   return <Provider value={[counts, setCounts]} {...props} />;
